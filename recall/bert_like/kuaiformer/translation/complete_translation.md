@@ -142,13 +142,16 @@ t_{5}^{mid } & =Mean\left(Bi \_Transformer \left(\left\{t_{193}, ..., t_{208}\ri
 类似地，中间物品组的计算也遵循此逻辑，得到结果\(t_{i}^{mid }\)。
 
 3. 最后，我们用压缩后的物品序列替代原始输入，生成用户兴趣：
-\[
+$$
 \begin{aligned} 
 u= Causal\_{Transformer} ( & \left\{t_{1}^{early }, t_{2}^{early }\right\} \\ 
 & \oplus\left\{t_{1}^{mid }, ..., t_{5}^{mid }\right\} \\ 
 & \left.\oplus\left\{t_{209}, ..., t_{256}\right\}, L, M\right) 
-\end{aligned} \tag{7}
-\]
+\end{aligned} 
+\\
+\tag{7}
+)
+$$
 基于自适应物品压缩策略，将序列长度从64扩展到256时，我们的模型仅增加了10%的额外计算资源。
 
 ![图1：序列长度设置为256、查询token数为4时的KuaiFormer架构。其中\(t_{1}^{early }\)表示早期物品压缩，\(t_{1}^{mid }\)表示中间物品压缩。通过输入更短的55个序列，我们可以有效建模256个长序列，实现高效训练和推理](figures/f1.png)
