@@ -110,8 +110,8 @@ Transformer[32]架构已在多个领域取得显著成功，例如自然语言�
 
 2. **分桶连续属性嵌入层**：
 与离散属性不同，该层旨在嵌入连续属性，包括观看时间、短视频时长等。对于这些连续属性，由于其先验分布不同，我们实际上为每个属性定制设计了特殊的分桶策略，在保留分布特征的同时将其离散化。以短视频时长\(f_{i}^{dura }\)为例，我们采用均匀分桶策略将其分为1000个桶，最大时长为300秒，并从参数矩阵\(Fduration \in \mathbb{R}^{1000 ×d}\)中查找其嵌入：
-\[f_{i}^{bucket_dura }=int\left(\frac{min \left(f_{i}^{dura }, 300\right)}{300} * 1000\right) \tag{4}\]
-其中\(f_{i}^{bucket_dura }\)是表示连续属性\(f_{i}^{dura }\)映射离散ID索引的整数。
+\[f_{i}^{bucket_{dura} }=int\left(\frac{min \left(f_{i}^{dura }, 300\right)}{300} * 1000\right) \tag{4}\]
+其中\(f_{i}^{bucket_{dura} }\)是表示连续属性\(f_{i}^{dura }\)映射离散ID索引的整数。
 
 #### 2.2.2 Transformer模块
 在上述嵌入模块之上，我们首先利用它们形成观看短视频序列信息。对于每个信息\((x_{i}, f_{i})\)，我们可以将其映射为：
@@ -119,7 +119,7 @@ Transformer[32]架构已在多个领域取得显著成功，例如自然语言�
 其中\(MLP(\cdot) \in \mathbb{R}^{d ×d}\)是前馈神经网络，\([\cdot, \cdot]\)表示拼接操作，\(t_{i}\)是最终的单元token表征。类似地，我们可以将输入表征序列转换为\({t_{1}, t_{2}, ..., t_{n}}\)。
 
 之后，我们利用Transformer对输入序列进行建模，以提取用户兴趣表征。具体而言，我们采用Llama Transformer架构[31]作为骨干网络，主要包括：(1) RMS归一化技术，避免梯度消失/爆炸问题；(2) 多头掩码自注意力机制，捕捉复杂的token依赖关系；(3) 逐点前馈层，增强模型的非线性能力。
-\[u= Causal_Transformer \left(\left\{t_{1}, t_{2}, ..., t_{n}\right\}, L, M\right) \tag{6}\]
+\[u= Causal\_{Transformer} \left(\left\{t_{1}, t_{2}, ..., t_{n}\right\}, L, M\right) \tag{6}\]
 如图所示，u是顶层最后一个位置的输出，L是控制Transformer深度的超参数，M是多头注意力的头数。
 
 ### 2.3 长序列建模
